@@ -14,6 +14,26 @@ config BR2_PACKAGE_LIBGPIOD_TOOLS
 	help
 	  Include a set of command-line tools for managing GPIOs.
 
+config BR2_PACKAGE_LIBGPIODCXX
+	bool "install C++ bindings"
+	depends on BR2_INSTALL_LIBSTDCPP
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_8 # C++11
+	help
+	  Build C++ bindings for libgpiod.
+
+comment "C++ bindings need a toolchain w/ C++, gcc >= 4.8"
+	depends on !BR2_INSTALL_LIBSTDCPP || \
+		!BR2_TOOLCHAIN_GCC_AT_LEAST_4_8
+
+config BR2_PACKAGE_LIBGPIOD_PYTHON
+	bool "install python bindings"
+	depends on BR2_PACKAGE_PYTHON3
+	help
+	  Build Python3 bindings for libgpiod.
+
+comment "Python bindings need python3"
+	depends on !BR2_PACKAGE_PYTHON3
+
 endif
 
 comment "libgpiod needs kernel headers >= 4.8"
